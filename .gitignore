@@ -7,6 +7,3 @@ _build/
 *.sublime-project
 *.sublime-workspace
 *.css
-.cache/
-public/.cache/
-tmp/
