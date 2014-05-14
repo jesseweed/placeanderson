@@ -5,7 +5,10 @@ module.exports = function(app, tesla) {
       colors = require('colors');
       tesla = require(dir + 'lib/tesla')(app),
       controllers = dir + 'app/controllers/',
-      routes = dir + 'app/routes/';
+      routes = dir + 'app/routes/',
+      qt = require('quickthumb'),
+      thumb = require('node-thumbnail').thumb,
+      easyimg = require('easyimage');
 
 
   // - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - -  //
@@ -29,12 +32,16 @@ module.exports = function(app, tesla) {
 
       if (fs.existsSync( img + num + '.jpg' )) {
         src = num + '.jpg';
+        dest = num + '_' + req.params.width + '_' + req.params.height + '.jpg';
       } else if (fs.existsSync( img + num + '.png' )) {
         src = num + '.png';
+        dest = num + '_' + req.params.width + '_' + req.params.height + '.png';
       } else if (fs.existsSync( img + num + '.gif' )) {
         src = num + '.gif';
+        dest = num + '_' + req.params.width + '_' + req.params.height + '.gif';
       } else {
         src = img + '01.jpg';
+        dest = '01_' + req.params.width + '_' + req.params.height + '.jpg';
       }
 
       app.site.img = {
@@ -43,7 +50,35 @@ module.exports = function(app, tesla) {
         src: src
       };
 
-      require(controllers + 'imageController')(app, res, res);
+      var file = './public/img/' + src;
+
+      easyimg.rescrop( {
+           src: './public/img/' + src,
+           dst: './public/.cache/' + dest,
+           width: req.params.width,
+           height: req.params.height,
+           cropwidth: req.params.width,
+           cropheight: req.params.height,
+           quality: 100,
+           fill: true
+           },
+        function(err, image) {
+           if (err) throw err;
+        }
+      );
+
+      fs.readFile('./public/.cache/' + dest, function(err, data) {
+
+        if (err) {
+          console.log(err);
+        }
+
+        res.contentType('image/jpeg');
+        res.end( data );
+
+      });
+
+
 
     });
 

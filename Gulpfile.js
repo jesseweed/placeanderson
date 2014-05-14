@@ -98,7 +98,7 @@ gulp.task('css', function () {
     if ( app.config.engines.css === 'stylus' ) {
       gulp.src('./public/css/**/*.styl')
           .pipe(stylus())
-          .pipe(gulp.dest( app.config.publicDir + 'css'));
+          .pipe(gulp.dest( app.config.publicDir + '/css'));
     }
 
     if ( app.config.engines.css === 'sass' ) {
