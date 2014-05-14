@@ -40,7 +40,7 @@ module.exports = function(app, tesla) {
         src = num + '.gif';
         dest = num + '_' + req.params.width + '_' + req.params.height + '.gif';
       } else {
-        src = img + '01.jpg';
+        src = '01.jpg';
         dest = '01_' + req.params.width + '_' + req.params.height + '.jpg';
       }
 
@@ -52,32 +52,44 @@ module.exports = function(app, tesla) {
 
       var file = './public/img/' + src;
 
-      easyimg.rescrop( {
-           src: './public/img/' + src,
-           dst: './public/.cache/' + dest,
-           width: req.params.width,
-           height: req.params.height,
-           cropwidth: req.params.width,
-           cropheight: req.params.height,
-           quality: 100,
-           fill: true
-           },
-        function(err, image) {
-           if (err) throw err;
-        }
-      );
+      // easyimg.rescrop( {
+      //      src: './public/img/' + src,
+      //      dst: './public/.cache/' + dest,
+      //      width: req.params.width,
+      //      height: req.params.height,
+      //      cropwidth: req.params.width,
+      //      cropheight: req.params.height,
+      //      quality: 100,
+      //      fill: true
+      //      },
+      //   function(err, image) {
+      //      if (err) throw err;
 
-      fs.readFile('./public/.cache/' + dest, function(err, data) {
+      //   }
+      // );
 
-        if (err) {
-          console.log(err);
-        }
+      easyimg.thumbnail( {
+        src: './public/img/' + src,
+        dst: './public/.cache/' + dest,
+        width: req.params.width,
+        height: req.params.height,
+        x:0, y:0
+      },
+      function(err, image) {
+        fs.readFile('./public/.cache/' + dest, function(err, data) {
 
-        res.contentType('image/jpeg');
-        res.end( data );
+          if (err) {
+            console.log(err);
+            res.send(err)
+          } else {
+            res.contentType('image/jpeg');
+            res.end( data );
+          }
 
-      });
 
+        });
+      }
+    );
 
 
     });
