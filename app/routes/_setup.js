@@ -70,13 +70,13 @@ module.exports = function(app, tesla) {
 
       easyimg.thumbnail( {
         src: './public/img/' + src,
-        dst: './public/.cache/' + dest,
+        dst: './tmp/' + dest,
         width: req.params.width,
         height: req.params.height,
         x:0, y:0
       },
       function(err, image) {
-        fs.readFile('./public/.cache/' + dest, function(err, data) {
+        fs.readFile('./tmp/' + dest, function(err, data) {
 
           if (err) {
             console.log(err);
