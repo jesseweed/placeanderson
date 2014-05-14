@@ -16,7 +16,7 @@ module.exports = function (app) {
 
   var tesla = require('../../lib/tesla')(app);
 
-  if ( typeof addresses[0] === 'undefined' ) addresses[0] = 'localhost'
+  if ( typeof addresses[0] === 'undefined' ) addresses[0] = 'http://placeanderson.herokuapp.com/'
 
   // global settings
   app.site.domain = addresses[0];
