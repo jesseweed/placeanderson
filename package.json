@@ -13,9 +13,12 @@
     "npm": ">=1.3.17"
   },
   "scripts": {
-    "start": "node node_modules/grunt-cli/bin/grunt",
-    "test": "node node_modules/grunt-cli/bin/grunt test",
-    "postinstall": "bower install"
+    "start": "node node_modules/gulp/bin/gulp",
+    "test": "node node_modules/gulp/bin/gulp test",
+    "postinstall": [
+      "node_modules/bower/bin/bower install",
+      "node_modules/bower/bin/gulp heroku"
+    ]
   },
   "dependencies": {
     "body-parser": "~1.0.1",
@@ -39,9 +42,7 @@
     "stylus": "latest",
     "jade": "latest",
     "easyimage": "~0.1.6",
-    "quickthumb": "0.0.9"
-  },
-  "devDependencies": {
+    "quickthumb": "0.0.9",
     "bower": ">=1.3.1",
     "colors": ">=0.6.2",
     "grunt": ">=0.4.2",
