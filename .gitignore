@@ -9,3 +9,4 @@ _build/
 *.css
 .cache/
 public/.cache/
+tmp/
