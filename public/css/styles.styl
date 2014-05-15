@@ -75,7 +75,7 @@ section.header {
 }
 
 section.tutorial {
-  width: 600px;
+  max-width: 600px;
   margin: 0 auto;
   margin-top: 20px;
 }
@@ -89,11 +89,23 @@ div.link {
   background-color: #3da394;
   color: #76d3c5;
   margin: 0px 10px 10px 10px;
+  text-align: left;
+}
+
+img.full {
+  width: 100%;
+  max-width: 600px;
+}
+
+img.thumb {
+  width: 100%;
+  max-width: 200px;
 }
 
 img {
   text-align: center;
   padding: 10px;
+  max-width: 600px;
 }
 
 div.link a {
@@ -107,4 +119,23 @@ div.link a {
   // font-size: 1.2em;
   text-align: right;
   font-weight: 900;
+}
+
+
+@media all and (max-width:500px) {
+  * {
+    text-align: center;
+  }
+
+  div.link, div.link a {
+    text-align: center;
+  }
+
+  .size {
+    display: block;
+    float: none;
+    padding-top: 5px;
+    text-align: center;
+  }
+
 }
