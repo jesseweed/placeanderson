@@ -2,8 +2,51 @@ extends layouts/default
 
 block content
 
-  h1 Hello!
-  h3 Welcome to&nbsp;
-    span.app-name #{title}
+  section.header
+    h1.bold PLACE ANDERSON
+    h4.fancy Wes Anderson themed image placeholders.
 
-  img(src="http://www:3333/200/100")
+
+  section.tutorial
+
+    h3.bold 1. START
+    h6.bold-black Append the width & height you want to the end of the url
+
+
+    div
+      img(src="http://placeanderson.com/600/400")
+
+      div.link
+        a(href="http://placeanderson.com/600/400").how http://placeanderson.com/600/400
+        span.size 600 x 400 pixels
+
+
+    br
+
+    div
+
+      h3.bold 2. UNIQUE MULTIPLICTY
+      h6.bold-black Use an id parameter if you want different images of the same size.
+
+      img(src="http://placeanderson.com/180/180?id=1")
+      img(src="http://placeanderson.com/180/180?id=2")
+      img(src="http://placeanderson.com/180/180?id=3")
+
+      div.link
+        a(href="http://placeanderson.com/180/180?id=1").how http://placeanderson.com/180/180?id=2
+        span.size 180 x 180 pixels
+
+      div.link
+        a(href="http://placeanderson.com/180/180?id=1").how http://placeanderson.com/180/180?id=2
+        span.size 180 x 180 pixels
+
+      div.link
+        a(href="http://placeanderson.com/180/180?id=1").how http://placeanderson.com/180/180?id=2
+        span.size 180 x 180 pixels
+
+
+    br
+    br
+    br
+    h1.fancy fin.
+    br
