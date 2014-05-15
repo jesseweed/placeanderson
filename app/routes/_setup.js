@@ -22,35 +22,105 @@ module.exports = function(app, tesla) {
       // res.send('width: ' + req.params.width + ' - height: ' + req.params.height);
 
 
-      var img = './public/img/';
 
-      var num = Math.floor( Math.random() * 17 );
+      // SELECT RANDOM IMAGE
+      var width = req.params.width,
+          height = req.params.height,
+          images = new Array,
+          dir = {
+            src : './public/img/src/',
+            dest : './tmp/'
+          },
+          files = fs.readdirSync( dir.src );
 
-      if (num < 10 ) num = '0' + num;
+      for(var i in files) {
 
-      if (num === 00 ) num = '01';
+          if ( files[i].indexOf(".jpg") > 0 || files[i].indexOf(".jpeg") > 0 || files[i].indexOf(".gif") > 0 || files[i].indexOf(".png") > 0 ) {
 
-      if (fs.existsSync( img + num + '.jpg' )) {
-        src = num + '.jpg';
-        dest = num + '_' + req.params.width + '_' + req.params.height + '.jpg';
-      } else if (fs.existsSync( img + num + '.png' )) {
-        src = num + '.png';
-        dest = num + '_' + req.params.width + '_' + req.params.height + '.png';
-      } else if (fs.existsSync( img + num + '.gif' )) {
-        src = num + '.gif';
-        dest = num + '_' + req.params.width + '_' + req.params.height + '.gif';
-      } else {
-        src = '01.jpg';
-        dest = '01_' + req.params.width + '_' + req.params.height + '.jpg';
+            if ( files[i].indexOf(".jpg") > 0 ) {
+
+              var file = {
+                src: files[i],
+                dest: files[i].replace('.jpg', '_' + width + '_' + height + '.jpg'),
+                type: 'jpg',
+              }
+
+              images.push(file);
+
+            }
+
+            else if ( files[i].indexOf(".jpeg") > 0 ) {
+
+              var file = {
+                src: files[i],
+                dest: files[i].replace('.jpeg', '_' + width + '_' + height + '.jpeg'),
+                type: 'jpeg',
+              }
+
+              images.push(file);
+
+            }
+
+            else if ( files[i].indexOf(".gif") > 0 ) {
+
+              var file = {
+                src: files[i],
+                dest: files[i].replace('.gif', '_' + width + '_' + height + '.gif'),
+                type: 'gif',
+              }
+
+              images.push(file);
+
+            }
+
+            else if ( files[i].indexOf(".png") > 0 ) {
+
+              var file = {
+                src: files[i],
+                dest: files[i].replace('.png', '_' + width + '_' + height + '.png'),
+                type: 'png',
+              }
+
+              images.push(file);
+
+            }
+
+          }
+
       }
 
-      app.site.img = {
-        w: req.params.width,
-        h: req.params.height,
-        src: src
-      };
 
-      var file = './public/img/' + src;
+      // console.log(images);
+
+      var pic = images[Math.floor(Math.random()*images.length)];
+
+      // var src = pic.replace('')
+
+      console.log(pic);
+
+
+      // var num = Math.floor( Math.random() * 17 );
+
+      // if (num < 10 ) num = '0' + num;
+
+      // if (num === 00 ) num = '01';
+
+      // if (fs.existsSync( img + num + '.jpg' )) {
+      //   src = num + '.jpg';
+      //   dest = num + '_' + req.params.width + '_' + req.params.height + '.jpg';
+      // } else if (fs.existsSync( img + num + '.png' )) {
+      //   src = num + '.png';
+      //   dest = num + '_' + req.params.width + '_' + req.params.height + '.png';
+      // } else if (fs.existsSync( img + num + '.gif' )) {
+      //   src = num + '.gif';
+      //   dest = num + '_' + req.params.width + '_' + req.params.height + '.gif';
+      // } else {
+      //   src = '01.jpg';
+      //   dest = '01_' + req.params.width + '_' + req.params.height + '.jpg';
+      // }
+      // // END
+
+
 
       // easyimg.rescrop( {
       //      src: './public/img/' + src,
@@ -69,20 +139,20 @@ module.exports = function(app, tesla) {
       // );
 
       easyimg.thumbnail( {
-        src: './public/img/' + src,
-        dst: './tmp/' + dest,
-        width: req.params.width,
-        height: req.params.height,
+        src: dir.src + pic.src,
+        dst: dir.dest + pic.dest,
+        width: width,
+        height: height,
         x:0, y:0
       },
       function(err, image) {
-        fs.readFile('./tmp/' + dest, function(err, data) {
+        fs.readFile(dir.dest + pic.dest, function(err, data) {
 
           if (err) {
             console.log(err);
             res.send(err)
           } else {
-            res.contentType('image/jpeg');
+            res.contentType('image/' + pic.type);
             res.end( data );
           }
 

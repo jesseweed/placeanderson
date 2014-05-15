@@ -7,3 +7,7 @@ _build/
 *.sublime-project
 *.sublime-workspace
 *.css
+tmp/*.jpg
+tmp/*.jpeg
+tmp/*.png
+tmp/*.gif
