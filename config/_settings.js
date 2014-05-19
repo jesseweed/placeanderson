@@ -4,7 +4,7 @@ rootPath = path.normalize(__dirname + '/..');
 module.exports = function (app) {
 
   app.site = {
-    name : "placeanderson", // the name of your app
+    name : "Place Anderson", // the name of your app
   }
 
   app.config = {
@@ -45,7 +45,7 @@ module.exports = function (app) {
       files : false // this doesn't do anything yet, eventually it will write .log files
     },
 
-    port : 3333, // port to run the server on
+    port : 2222, // port to run the server on
 
     prettify : {
       html : true, // whether to pretify html

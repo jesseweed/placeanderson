@@ -90,7 +90,7 @@ module.exports = function(app, tesla) {
       compile: compile
     }));
 
-    app.use(qt.static(app.config.root + '/public/'));
+    app.use(express.static(app.config.root + '/public/'));
 
   // CUSTOM SETTINGS FOR SASS
   } else if ( app.config.engines.css === 'sass' ) {
