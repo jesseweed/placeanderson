@@ -13,7 +13,7 @@
     "body-parser": "~1.0.1",
     "colors": ">=0.6.2",
     "cookie-parser": "~1.0.1",
-    "express": "~4.0",
+    "express": "~4.5",
     "express-minify": ">=0.0.7",
     "jade": "1.11.0",
     "jimp": "^0.16.1",
