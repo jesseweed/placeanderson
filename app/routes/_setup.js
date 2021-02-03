@@ -1,20 +1,18 @@
 module.exports = function(app, tesla) {
 
-  var dir = '../../',
-      fs = require('fs'),
-      colors = require('colors');
-      tesla = require(dir + 'lib/tesla')(app),
-      controllers = dir + 'app/controllers/',
-      routes = dir + 'app/routes/',
-      easyimg = require('easyimage');
+  require('colors');
 
+  const dir = '../../',
+      fs = require('fs'),
+      routes = dir + 'app/routes/',
+      Jimp = require('jimp');
 
     // HELLO WORLD ROUTER - example of loading controller if specific path is matched
     app.get("/:width/:height", function(req, res) {
 
       // SELECT RANDOM IMAGE
-      var width = req.params.width,
-          height = req.params.height,
+      const width = parseInt(req.params.width, 10),
+          height = parseInt(req.params.height, 10),
           images = new Array,
           dir = {
             src : './public/img/src/',
@@ -23,13 +21,13 @@ module.exports = function(app, tesla) {
           files = fs.readdirSync( dir.src );
 
       // DETERMINE IMAGE TYPE
-      for(var i in files) {
+      for(const i in files) {
 
           if ( files[i].indexOf(".jpg") > 0 || files[i].indexOf(".jpeg") > 0 || files[i].indexOf(".gif") > 0 || files[i].indexOf(".png") > 0 ) {
 
             if ( files[i].indexOf(".jpg") > 0 ) {
 
-              var file = {
+              const file = {
                 src: files[i],
                 dest: files[i].replace('.jpg', '_' + width + '_' + height + '.jpg'),
                 type: 'jpg',
@@ -41,7 +39,7 @@ module.exports = function(app, tesla) {
 
             else if ( files[i].indexOf(".jpeg") > 0 ) {
 
-              var file = {
+              const file = {
                 src: files[i],
                 dest: files[i].replace('.jpeg', '_' + width + '_' + height + '.jpeg'),
                 type: 'jpeg',
@@ -53,7 +51,7 @@ module.exports = function(app, tesla) {
 
             else if ( files[i].indexOf(".gif") > 0 ) {
 
-              var file = {
+              const file = {
                 src: files[i],
                 dest: files[i].replace('.gif', '_' + width + '_' + height + '.gif'),
                 type: 'gif',
@@ -65,7 +63,7 @@ module.exports = function(app, tesla) {
 
             else if ( files[i].indexOf(".png") > 0 ) {
 
-              var file = {
+              const file = {
                 src: files[i],
                 dest: files[i].replace('.png', '_' + width + '_' + height + '.png'),
                 type: 'png',
@@ -79,38 +77,29 @@ module.exports = function(app, tesla) {
 
       } // END
 
-      var pic = images[Math.floor(Math.random()*images.length)];
+      const IMG_SRC = images[Math.floor(Math.random()*images.length)].src;
 
-      easyimg.thumbnail( {
-        src: dir.src + pic.src,
-        dst: dir.dest + pic.dest,
-        width: width,
-        height: height,
-        x:0, y:0
-      },
+      Jimp.read(`${dir.src}${IMG_SRC}`).then(image => {
+        image
+          .cover(width, height, Jimp.HORIZONTAL_ALIGN_CENTER | Jimp.VERTICAL_ALIGN_MIDDLE)
+          .quality(100);
 
-      function(err, image) {
-        fs.readFile(dir.dest + pic.dest, function(err, data) {
+        const mime = image.getMIME();
 
-          if (err) {
-            console.log(err);
-            res.send(err)
-          } else {
-            res.contentType('image/' + pic.type);
-            res.end( data );
-          }
-
-
+        image.getBufferAsync(mime).then((data) => {
+          res.contentType(mime);
+          res.end( data );
         });
-      }
 
-    );
-
+      })
+      .catch(err => {
+        console.error('Error processing image', err);
+      });
 
     });
 
 
-    // AUTO ROUTER (THIS SHOULD COME AFTER ANY CUSTOME ROUTES)
+    // AUTO ROUTER (THIS SHOULD COME AFTER ANY CUSTOM ROUTES)
     if ( app.config.autoRouting === true ) {
       tesla.log( 'INFO:'.blue + ' using auto router');
       require(routes + 'auto')(app, tesla);

@@ -1,0 +1,9 @@
+{
+  "verbose": true,
+  "ignore": [
+    "README.md",
+    "node_modules/**",
+    ".DS_Store"
+  ],
+  "ext": "js, ejs, hbs, jade, html, mustache, styl, less, scss"
+}

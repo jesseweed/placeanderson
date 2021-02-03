@@ -7,11 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     methodOverride = require('method-override'),
     minify = require('express-minify'),
-    helpers = require('view-helpers'),
-    tesla = require('../lib/tesla'),
-    colors = require('colors'),
-    fs = require('fs'),
-    qt = require('quickthumb');
+    helpers = require('view-helpers');
 
 module.exports = function(app, tesla) {
 
@@ -129,7 +125,6 @@ module.exports = function(app, tesla) {
   } else {
     app.use(express.static(app.config.root + '/public/'));
   }
-
 
 
   // MINIFY

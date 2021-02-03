@@ -1,10 +1,9 @@
 // MODULE DEPENDENCIES
+require('colors')
+
 var express = require('express'),
-  fs = require('fs'),
-  env = process.env.NODE_ENV = process.env.NODE_ENV || 'development',
   app = module.exports = express(),
   server = require('http').createServer(app),
-  colors = require('colors'),
   tesla, port;
 
 
