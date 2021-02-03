@@ -17,7 +17,7 @@
     "express-minify": ">=0.0.7",
     "jade": "1.11.0",
     "jimp": "^0.16.1",
-    "method-override": "~1.0.0",
+    "method-override": "~2.3.10",
     "morgan": "~1.0.0",
     "stylus": "~0.54.8",
     "view-helpers": ">=0.1.3"
