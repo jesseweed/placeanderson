@@ -7,7 +7,7 @@
   "homepage": "http://placeanderson.com",
   "scripts": {
     "dev": "NODE_ENV=development nodemon ./server.js",
-    "start": "nodemon ./server.js"
+    "start": "node ./server.js"
   },
   "dependencies": {
     "body-parser": "~1.0.1",

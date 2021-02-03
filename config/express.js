@@ -162,9 +162,7 @@ module.exports = function(app, tesla) {
   // app.use(favicon());
 
   // LOGGER
-  if (process.env.NODE_ENV !== 'test') {
-    app.use(morgan('dev'));
-  }
+  app.use(morgan('dev'));
 
   // SET VIEWS DIR
   app.set('views', app.config.root + '/app/views');
