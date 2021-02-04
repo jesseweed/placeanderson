@@ -21,7 +21,7 @@
     "jade": "1.11.0",
     "jimp": "^0.16.1",
     "method-override": "~1.0.0",
-    "morgan": "~1.0.0",
+    "morgan": "~1.9.1",
     "stylus": "~0.54.8",
     "view-helpers": ">=0.1.3"
   },
